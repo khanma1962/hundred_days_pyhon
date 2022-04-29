@@ -6,3 +6,7 @@ bills.py
 temp.py
 __pycache__/temp.cpython-39.pyc
 tempCodeRunnerFile.py
+temp/fizz_buzz.py
+temp/love_calculator.py
+temp/password_generator.py
+temp/*
