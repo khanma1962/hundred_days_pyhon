@@ -10,3 +10,5 @@ temp/fizz_buzz.py
 temp/love_calculator.py
 temp/password_generator.py
 temp/*
+hangman/__pycache__/hangman_art.cpython-39.pyc
+hangman/__pycache__/hangman_words.cpython-39.pyc
