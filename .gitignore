@@ -12,3 +12,9 @@ temp/password_generator.py
 temp/*
 hangman/__pycache__/hangman_art.cpython-39.pyc
 hangman/__pycache__/hangman_words.cpython-39.pyc
+.idea/*.xml
+*/*/*.pyc
+.idea/*.iml
+.idea/inspectionProfiles/profiles_settings.xml
+
+hangman/.DS_Store
