@@ -4,9 +4,9 @@
 import random
 from hangman_art import stages, logo
 from hangman_words import word_list
-from replit import clear
+# from replit import clear
 
-print(logo)
+# print(logo)
 chosen_word = random.choice(word_list)
 print(f'Pssst, the solution is {chosen_word}.\n')
 
@@ -22,7 +22,7 @@ lives = 6
 while not end_of_game:
     print(display, end='\n')
     guess = input("\nPlease input a character : ").lower()
-    clear()
+    # clear()
     
     if guess in display:
       print(f"\nYou have already guessed {guess}.")
