@@ -18,3 +18,6 @@ hangman/__pycache__/hangman_words.cpython-39.pyc
 .idea/inspectionProfiles/profiles_settings.xml
 
 hangman/.DS_Store
+day_18/main.py
+day_19/main.py
+day_19/main2.py
