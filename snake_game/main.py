@@ -2,6 +2,8 @@
 
 from turtle import Screen
 import time
+
+from pkg_resources import safe_name
 from snake import Snake
 from food import Food
 from score import Scoreboard
@@ -42,8 +44,10 @@ while game_is_on:
 
     # detect collision with the wall
     if not((-0.5*WIDTH) < snake.head.xcor() < (0.5*WIDTH) and (-0.5*HEIGHT) < snake.head.ycor() < (0.5*HEIGHT)):
-        score_board.game_over()
-        game_is_on = False
+        # score_board.game_over()
+        score_board.reset()
+        snake.reset_snake()
+        # game_is_on = False
 
     # detect collision with the tail
     #if the tail collides with any segment, trigger game over sequence
