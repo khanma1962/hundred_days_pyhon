@@ -1,5 +1,4 @@
 
-
 import pandas as pd
 import numpy as np
 import turtle 
@@ -20,14 +19,12 @@ guessed_state = []
 while len(guessed_state) < 50:
     answer_state = screen.textinput(title= f"{len(guessed_state)} / 50 Game State", prompt= "What is another state?")
     answer_state = answer_state.title() 
+
     if answer_state == 'Exit':
-        missing_state = []
-        for state in all_state:
-            if state not in guessed_state:
-                missing_state.append(state)
+        missing_state = [state for state in all_state if state not in guessed_state]
         missing_data = pd.DataFrame(missing_state)
         missing_data.to_csv("map_challenge/us-states-game-start/State_to_learn.csv")
-        # print(missing_state)
+    #     # print(missing_state)
         break
 
     if answer_state in all_state:
