@@ -52,4 +52,6 @@ while game_is_on:
         ball.reset_position()
         scoreboard.increase_score_r()
 
+
+
 screen.exitonclick()
