@@ -5,7 +5,6 @@ from ball import Ball
 import time
 from scoreboard import Scoreboard
 
-
 WIDTH, HEIGHT, = 800, 600
 
 screen = Screen()
