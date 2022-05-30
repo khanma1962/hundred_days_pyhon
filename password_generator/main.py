@@ -55,6 +55,7 @@ def add_to_file():
                 password_entry.delete(0, END)
 
 
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
