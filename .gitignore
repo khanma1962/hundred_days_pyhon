@@ -33,3 +33,4 @@ map_challenge/us-states-game-start/State_to_learn.csv
 *.zip
 
 /password_generator/pass.py
+/password_generator/data.json

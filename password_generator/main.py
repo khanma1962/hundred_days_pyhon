@@ -2,6 +2,7 @@
 from tkinter import *
 from tkinter import messagebox
 from random import randint, choice, shuffle
+import json
 
 import pyperclip
 
@@ -11,6 +12,8 @@ GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 BACKGROUND = "#FFE3A9"
 FONT_NAME = "Courier"
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 def generate_password():
@@ -41,19 +44,35 @@ def add_to_file():
     website = web_entry.get()
     email = email_entry.get()
     password = password_entry.get()
+    new_data = {
+        website: {
+            'email': email,
+            'password' : password
+        }
+    }
 
     if len(website) == 0 or len(password) == 0:
         messagebox.showinfo(title="Warning", message="One of field is empty. Please enter all info.")
     else:
-        is_ok = messagebox.askokcancel(title=website,
-                                       message=f"These are details entered {email}\n Password: {password}\n Is it OK to save?")
+        # is_ok = messagebox.askokcancel(title=website,
+        #                                message=f"These are details entered {email}\n Password: {password}\n Is it OK to save?")
+        #
+        # if is_ok:
+        with open("data.json", "r") as data_file:
+            #read the dictionary
+            data = json.load(data_file)
+            #update the dictionary with new data
+            data.update(new_data)
 
-        if is_ok:
-            with open("data.txt", "a") as data_file:
-                data_file.write(f"{website} | {email} | {password}\n")
-                web_entry.delete(0, END)
-                password_entry.delete(0, END)
+        with open("data.json", 'w') as data_file:
+            json.dump(data, data_file, indent= 4)
 
+            web_entry.delete(0, END)
+            password_entry.delete(0, END)
+
+
+def search_password():
+    website = web_entry.get()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -71,7 +90,7 @@ canvas.grid(row=0, column=1)
 web_label = Label(text='Website: ', bg='white', highlightthickness=0)
 web_label.grid(row=1, column=0)
 
-web_entry = Entry(width=39)
+web_entry = Entry(width=21)
 web_entry.insert(END, string="")
 web_entry.grid(row=1, column=1, columnspan=2)
 web_entry.focus()
@@ -80,7 +99,7 @@ print(web_entry)
 email_label = Label(text='Email/Username: ', bg='white', highlightthickness=0)
 email_label.grid(row=2, column=0)
 
-email_entry = Entry(width=39)
+email_entry = Entry(width=21)
 email_entry.insert(0, string="khan_m_a@hotmail.com")
 email_entry.grid(row=2, column=1, columnspan=2)
 
@@ -96,5 +115,8 @@ add_button.grid(row=4, column=1, columnspan=2)
 
 gen_password_button = Button(text='Generate Password', highlightthickness=0, command=generate_password)
 gen_password_button.grid(row=3, column=2)
+
+search_button = Button(text='Search', highlightthickness=0, command=search_password)
+search_button.grid(row=1, column=2)
 
 window.mainloop()
