@@ -1,4 +1,3 @@
-
 from tkinter import *
 from tkinter import messagebox
 from random import randint, choice, shuffle
@@ -47,7 +46,7 @@ def add_to_file():
     new_data = {
         website: {
             'email': email,
-            'password' : password
+            'password': password
         }
     }
 
@@ -56,23 +55,33 @@ def add_to_file():
     else:
         # is_ok = messagebox.askokcancel(title=website,
         #                                message=f"These are details entered {email}\n Password: {password}\n Is it OK to save?")
-        #
+
         # if is_ok:
-        with open("data.json", "r") as data_file:
-            #read the dictionary
-            data = json.load(data_file)
-            #update the dictionary with new data
+        try:
+            with open("data.json", "r") as data_file:
+                # read the dictionary
+                data = json.load(data_file)
+
+        except FileNotFoundError:
+            print("Creating a new json file")
+            with open("data.json", "w") as data_file:
+                # read the dictionary
+                json.dump(new_data, data_file, indent=4)
+
+        else:
+            # update the dictionary with new data
             data.update(new_data)
 
-        with open("data.json", 'w') as data_file:
-            json.dump(data, data_file, indent= 4)
+            with open("data.json", 'w') as data_file:
+                json.dump(data, data_file, indent=4)
 
+        finally:
             web_entry.delete(0, END)
             password_entry.delete(0, END)
 
 
-def search_password():
-    website = web_entry.get()
+# def search_password():
+#     website = web_entry.get()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -92,7 +101,7 @@ web_label.grid(row=1, column=0)
 
 web_entry = Entry(width=21)
 web_entry.insert(END, string="")
-web_entry.grid(row=1, column=1, columnspan=2)
+web_entry.grid(row=1, column=1)#, columnspan=2)
 web_entry.focus()
 print(web_entry)
 
@@ -101,7 +110,7 @@ email_label.grid(row=2, column=0)
 
 email_entry = Entry(width=21)
 email_entry.insert(0, string="khan_m_a@hotmail.com")
-email_entry.grid(row=2, column=1, columnspan=2)
+email_entry.grid(row=2, column=1)#, columnspan=2)
 
 password_label = Label(text='Password: ', bg='white', highlightthickness=0)
 password_label.grid(row=3, column=0)
@@ -116,7 +125,7 @@ add_button.grid(row=4, column=1, columnspan=2)
 gen_password_button = Button(text='Generate Password', highlightthickness=0, command=generate_password)
 gen_password_button.grid(row=3, column=2)
 
-search_button = Button(text='Search', highlightthickness=0, command=search_password)
+search_button = Button(text='Search', highlightthickness=0)  # , command=search_password)
 search_button.grid(row=1, column=2)
 
 window.mainloop()
