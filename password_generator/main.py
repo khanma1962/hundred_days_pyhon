@@ -31,7 +31,7 @@ def generate_password():
 
     shuffle(password_list)
 
-    password = "".join(password_list)
+    password = "".join(password_list)  # converting list to a single password
 
     password_entry.insert(0, password)
     pyperclip.copy(password)
@@ -80,8 +80,32 @@ def add_to_file():
             password_entry.delete(0, END)
 
 
-# def search_password():
-#     website = web_entry.get()
+def search_password():
+
+    website = web_entry.get()
+
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+
+    except FileNotFoundError:
+        messagebox.showinfo(title="File Error", message="File not found.")
+
+    else:
+        if website in data:
+            email_found = data[website]["email"]
+            password_found = data[website]["password"]
+
+            # email_entry.insert(0, string="")
+            # password_entry.insert(0, string="")
+
+            email_entry.insert(0, string=email_found)
+            password_entry.insert(END, string=password_found)
+            messagebox.showinfo(title="Website", message=f"email is {email_found} and password is {password_found}")
+
+        else:
+            # print("No Email/Password found for this website.")
+            messagebox.showinfo(title="Website Error", message=f"No data found website {website}.")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -101,16 +125,16 @@ web_label.grid(row=1, column=0)
 
 web_entry = Entry(width=21)
 web_entry.insert(END, string="")
-web_entry.grid(row=1, column=1)#, columnspan=2)
+web_entry.grid(row=1, column=1)  # , columnspan=2)
 web_entry.focus()
-print(web_entry)
+# print(web_entry)
 
 email_label = Label(text='Email/Username: ', bg='white', highlightthickness=0)
 email_label.grid(row=2, column=0)
 
 email_entry = Entry(width=21)
 email_entry.insert(0, string="khan_m_a@hotmail.com")
-email_entry.grid(row=2, column=1)#, columnspan=2)
+email_entry.grid(row=2, column=1)  # , columnspan=2)
 
 password_label = Label(text='Password: ', bg='white', highlightthickness=0)
 password_label.grid(row=3, column=0)
@@ -125,7 +149,7 @@ add_button.grid(row=4, column=1, columnspan=2)
 gen_password_button = Button(text='Generate Password', highlightthickness=0, command=generate_password)
 gen_password_button.grid(row=3, column=2)
 
-search_button = Button(text='Search', highlightthickness=0)  # , command=search_password)
+search_button = Button(text='Search', width=13, highlightthickness=0, command=search_password)
 search_button.grid(row=1, column=2)
 
 window.mainloop()
